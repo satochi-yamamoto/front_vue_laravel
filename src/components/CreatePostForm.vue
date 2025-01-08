@@ -42,15 +42,13 @@ export default {
           content: this.content
         }
 
-        await axios.post('http://127.0.0.1:8000/api/posts', payload)
+        // Chamando a URL da API via variável de ambiente
+        await axios.post(`${process.env.VUE_APP_API_URL}/posts`, payload)
         alert('Post criado com sucesso!')
         
         // Limpar campos
         this.title = ''
         this.content = ''
-        
-        // Se desejar, você pode emitir um evento ou fazer algo adicional
-        // para atualizar a lista de posts no componente pai.
       } catch (error) {
         console.error('Erro ao criar post:', error)
       }
