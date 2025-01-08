@@ -21,7 +21,8 @@ export default {
   },
   async created() {
     try {
-      const response = await axios.get('http://127.0.0.1:8000/api/posts')
+      // const response = await axios.get('http://127.0.0.1:8000/api/posts')
+      const response = await axios.get(`${process.env.VUE_APP_API_URL}/posts`)
       this.posts = response.data.data
       // De acordo com o nosso Resource,
       // 'data' no response contem a coleção de posts.
