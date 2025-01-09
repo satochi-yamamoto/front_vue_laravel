@@ -1,22 +1,26 @@
 <template>
-  <div>
+  <div class="form-container">
     <h2>Criar Post</h2>
     <form @submit.prevent="createPost">
-      <label for="title">Título:</label>
-      <input
-        type="text"
-        id="title"
-        v-model="title"
-        required
-      />
+      <div class="form-group">
+        <label for="title">Título:</label>
+        <input
+          type="text"
+          id="title"
+          v-model="title"
+          required
+        />
+      </div>
 
-      <label for="content">Conteúdo:</label>
-      <textarea
-        id="content"
-        rows="5"
-        v-model="content"
-        required
-      ></textarea>
+      <div class="form-group">
+        <label for="content">Conteúdo:</label>
+        <textarea
+          id="content"
+          rows="5"
+          v-model="content"
+          required
+        ></textarea>
+      </div>
 
       <button type="submit">Salvar</button>
     </form>
@@ -42,13 +46,17 @@ export default {
           content: this.content
         }
 
-        // Chamando a URL da API via variável de ambiente
+        // Variável de ambiente: process.env.VUE_APP_API_URL
         await axios.post(`${process.env.VUE_APP_API_URL}/posts`, payload)
+
         alert('Post criado com sucesso!')
-        
-        // Limpar campos
+
+        // Limpando campos
         this.title = ''
         this.content = ''
+
+        // Emitindo evento para o componente pai atualizar a lista
+        this.$emit('postCreated')
       } catch (error) {
         console.error('Erro ao criar post:', error)
       }
@@ -56,3 +64,38 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+/* Área do formulário */
+.form-container {
+  margin-bottom: 20px;
+  text-align: left; /* Alinhar rótulos à esquerda */
+}
+
+/* Espaço entre os campos do formulário */
+.form-group {
+  margin-bottom: 10px;
+}
+
+/* Labels com negrito */
+label {
+  font-weight: bold;
+}
+
+/* Inputs e textarea com estilos básicos */
+input,
+textarea {
+  width: 100%;
+  padding: 8px;
+  margin-top: 4px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+/* H2 estilizado para destaque */
+h2 {
+  text-align: center; /* Centraliza o título no container */
+  margin-bottom: 10px;
+}
+</style>
