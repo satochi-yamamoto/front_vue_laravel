@@ -22,6 +22,14 @@
         ></textarea>
       </div>
 
+      <div class="form-group">
+        <label for="content">Nome:</label>
+        <textarea
+          id="nome"
+         v-model="nome"
+          required
+        ></textarea>
+      </div>
       <button type="submit">Salvar</button>
     </form>
   </div>
